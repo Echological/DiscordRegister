@@ -117,3 +117,7 @@ module.exports = (client) => {
 ```
 
 The `client` argument will be passed first on all of the event handlers, then along with the parameters for the event from discord.js
+
+## Example
+
+An example can be found in the `test` directory
