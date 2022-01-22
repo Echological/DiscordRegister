@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node test/test"
   },
-  "repository":"https://github.com/Echological/DiscordRegister",
+  "repository": "https://github.com/Echological/DiscordRegister",
   "keywords": [],
   "author": "",
   "license": "ISC",

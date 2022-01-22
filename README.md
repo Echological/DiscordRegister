@@ -28,6 +28,15 @@ fs.readdir("dir/commands/", (e,f) => {
 })
 ```
 
+Then, once you have your commands registered, you must send them via rest:
+```js
+Commands.route(process.env.TOKEN, client.application.id)
+  .then(console.log)
+  .catch(console.log)
+```
+You should do this within your `client`'s `ready` event
+(see #Events)
+
 Note: To listen to the interactions of slash commands, look at the [interactionCreate Event](https://discord.js.org/#/docs/discord.js/stable/class/Client?scrollTo=e-interactionCreate)
 
 Your command file does not have to be named anything specific, but inside of it you will need to do one thing
