@@ -30,10 +30,13 @@ fs.readdir("dir/commands/", (e,f) => {
 
 Then, once you have your commands registered, you must send them via rest:
 ```js
-Commands.route(process.env.TOKEN, client.application.id)
+Commands.route(TOKEN, client.application.id) // replace TOKEN with your bot's token
   .then(console.log)
   .catch(console.log)
 ```
+This takes in the `client`'s token, which is required for polling of the Discord api
+And also the `client`'s id, which can be obtained through `client.application.id`
+
 You should do this within your `client`'s `ready` event
 (see #Events)
 
