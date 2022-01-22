@@ -34,19 +34,18 @@ Commands.route(TOKEN, client.application.id) // replace TOKEN with your bot's to
   .then(console.log)
   .catch(console.log)
 ```
-This takes in the `client`'s token, which is required for polling of the Discord api
-And also the `client`'s id, which can be obtained through `client.application.id`
+This takes in the `client`'s token, which is required for polling of the Discord API, and also the `client`'s id, which can be obtained through `client.application.id`
 
 You should do this within your `client`'s `ready` event
-(see #Events)
+(see [Events](#Events))
 
-Note: To listen to the interactions of slash commands, look at the [interactionCreate Event](https://discord.js.org/#/docs/discord.js/stable/class/Client?scrollTo=e-interactionCreate)
+### Command File
 
-Your command file does not have to be named anything specific, but inside of it you will need to do one thing
+> Note: To listen to the interactions of slash commands, look at the [interactionCreate Event](https://discord.js.org/#/docs/discord.js/stable/class/Client?scrollTo=e-interactionCreate)
 
-You will need to build a SlashCommand object using discord.js's builders
+Your command file does not have to be named anything specific, but inside of it you will need to build a SlashCommand object using [discord.js's builders](https://discord.js.org/docs/builders#/docs/builders/stable/general/welcome)
 
-Example:
+Example of Command:
 ```js
 const { SlashCommandBuilder } = require('@discordjs/builders'); // get the slash command builder
 
@@ -61,24 +60,7 @@ module.exports = { // export the command
 
 As mentioned before, you can use the `interactionCreate` event to listen to the slash commands, and example of this follows:
 
-(`interactionCreate.js` Event)
-```js
-const {Commands} = require("discordregister")
-
-module.exports = (client, interaction) => {
-  if (interaction.isCommand()) {
-    let cmd = Commands.commands.get(interaction.commandName)
-
-    if (!cmd) return
-
-    await cmd.interact(client, interaction) // use the method from our command file
-  } 
-}
-```
-
-then, in your command file:
-
-(`hi.js` Command)
+So, if we have the following Command file:
 ```js
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
@@ -94,13 +76,32 @@ module.exports = {
 }
 ```
 
+We want to access the `interact()` method in our event, we can by accessing the saved export object in the commands Collection
+
+Then in our `interactionCreate.js` [event file](#Events):
+```js
+const {Commands} = require("discordregister")
+
+module.exports = (client, interaction) => {
+  if (interaction.isCommand()) {
+    let cmd = Commands.commands.get(interaction.commandName)
+
+    if (!cmd) return
+
+    await cmd.interact(client, interaction) // use the method from our command file
+  } 
+}
+```
+
+Then done, that's how you setup and listen to commands 
+
 ## Events
 
-For listening to commands, you can do a very similar thing as the Commands
+For listening to events, you can do a very similar thing as the Commands
 
 Make sure you have your discord.js `client` setup
 
-Then:
+Then, go ahead and go through the files you want to register:
 ```js
 const { Commands } = require("discord.js")
 const fs = require("fs") // to read files
@@ -117,11 +118,11 @@ readdir("dir/events/", (e,f) => {
 })
 ```
 
-Then, name your event file according to the event
+Then, you will have to name your event file according to the event
 
-For example, if you want to listen to the `ready` event, name your file `ready.js`
+For example, if you want to listen to the [`ready`](https://discord.js.org/#/docs/discord.js/stable/class/Client?scrollTo=e-ready) event, name your file `ready.js` (or `ready.ts`)
 
-In `ready.js`:
+In `ready.js` file:
 ```js
 module.exports = (client) => {
   console.log("Client is ready!")
@@ -132,4 +133,4 @@ The `client` argument will be passed first on all of the event handlers, then al
 
 ## Example
 
-An example can be found in the `test` directory
+An example can be found in the [/test/](https://github.com/Echological/DiscordRegister/tree/main/test) directory
