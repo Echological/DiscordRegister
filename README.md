@@ -133,4 +133,4 @@ The `client` argument will be passed first on all of the event handlers, then al
 
 ## Example
 
-An example can be found in the [/test/](https://github.com/Echological/DiscordRegister/tree/main/test) directory
+An example can be found in the [/test/](https://github.com/Echological/DiscordRegister/tree/main/test) directory and also at [here](https://replit.com/@Echology/Discordjs-Template/)
