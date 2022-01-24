@@ -2,8 +2,6 @@
 
 > A simple way to register event and command handlers with [discord.js](https://www.npmjs.com/package/discord.js)
 
-
-
 ## Commands
 
 To register a command, you only need to do a few things
@@ -30,11 +28,13 @@ fs.readdir("dir/commands/", (e,f) => {
 
 Then, once you have your commands registered, you must send them via rest:
 ```js
-Commands.route(TOKEN, client.application.id) // replace TOKEN with your bot's token
+Commands.route(client) // replace TOKEN with your bot's token
   .then(console.log)
   .catch(console.log)
 ```
-This takes in the `client`'s token, which is required for polling of the Discord API, and also the `client`'s id, which can be obtained through `client.application.id`
+This takes in the `client`, to obtain the token and application id
+
+You can also pass a second `guild` parameter, to specify a guild to register commands for
 
 You should do this within your `client`'s `ready` event
 (see [Events](#Events))
@@ -103,11 +103,11 @@ Make sure you have your discord.js `client` setup
 
 Then, go ahead and go through the files you want to register:
 ```js
-const { Commands } = require("discord.js")
+const { Events } = require("discord.js")
 const fs = require("fs") // to read files
 const path = require("path")
 
-readdir("dir/events/", (e,f) => {
+fs.readdir("dir/events/", (e,f) => {
   if (e) return console.log(e)
   var m = f.map(f => path.join(__dirname,"events",f))
   // get the directory to the files 

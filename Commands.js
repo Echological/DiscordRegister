@@ -25,9 +25,11 @@ const register = (paths) => {
 * @param id Id of the client to use for route request (required)
 * @param settings Settings for the route request, permissions key will determine if the permissions should be set, guilds will determine the guild to update the command for
   **/
-const route = (token, id, guild = undefined) => {
+const route = (client, guild = undefined) => {
   return new Promise((resolve, reject) => {
-
+    if (!client) return reject("No client object provided")
+    var {token,application} = client
+    var {id} = application
     if (!token) return reject("No token provided for the request")
     if (!id) return reject("No id provied for the request")
     if (!commands) return reject("No commands to route")
