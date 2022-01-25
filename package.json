@@ -5,8 +5,10 @@
   "scripts": {
     "start": "node test/test"
   },
-  "repository": "https://github.com/Echological/DiscordRegister",
-  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Echological/DiscordRegister.git"
+  }  "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
