@@ -1,6 +1,6 @@
 {
   "name": "discordregister",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "main": "index.js",
   "scripts": {
     "start": "node test/test"
@@ -8,7 +8,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/Echological/DiscordRegister.git"
-  },  
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
