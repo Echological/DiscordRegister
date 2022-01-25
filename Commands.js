@@ -6,7 +6,7 @@ const commands = new Collection()
 
 
 
-const register = (paths) => {
+const register = (...paths) => {
   return new Promise((resolve, reject) => {
     if (!paths) return reject("No paths given")
     for (var p of paths) {

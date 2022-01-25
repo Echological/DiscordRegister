@@ -6,11 +6,25 @@
 
 To register a command, you only need to do a few things
 
+To simply register a command from a file path:
+```js
+const { Commands } = require("discordregister")
+
+Commands.register("path/to/file")
+```
+
+Then,
+```js
+Commands.route(client)
+```
+
+### Expanded Usage
+
 First is to setup a discord.js bot, which I will be referencing as `client`
 
 Then, register the files you want to use as commands:
 ```js
-const { Commands } = require("discord.js")
+const { Commands } = require("discordregister")
 const fs = require("fs") // to read files
 const path = require("path")
 
@@ -19,7 +33,7 @@ fs.readdir("dir/commands/", (e,f) => {
   var m = f.map(f => path.join(__dirname,"commands",f))
   // get the directory to the files
   
-  Commands.register(m) // register the commands
+  Commands.register(...m) // register the commands
     .then(console.log) // returns the commands
     .catch(console.log) // check for errors
   
@@ -99,11 +113,22 @@ Then done, that's how you setup and listen to commands
 
 For listening to events, you can do a very similar thing as the Commands
 
+To simply register an event from a file path:
+```js
+const { Events } = require("discordregister")
+
+Events.register(client, "path/to/file")
+```
+
+This takes in your `client` in order to handle the event listeners with the export method in your file
+
+### Expanded Usage
+
 Make sure you have your discord.js `client` setup
 
 Then, go ahead and go through the files you want to register:
 ```js
-const { Events } = require("discord.js")
+const { Events } = require("discordregister")
 const fs = require("fs") // to read files
 const path = require("path")
 
@@ -112,7 +137,7 @@ fs.readdir("dir/events/", (e,f) => {
   var m = f.map(f => path.join(__dirname,"events",f))
   // get the directory to the files 
   
-  Events.register(client, m) // register events
+  Events.register(client, ...m) // register events
     .then(console.log) // returns the events registered
     .catch(console.log) // check for errors
 })

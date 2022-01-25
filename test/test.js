@@ -8,7 +8,7 @@ const {readdir} = require("fs")
 readdir("test/events/", (e,f) => {
   if (e) return console.log(e)
   var m = f.map(f => __dirname+"/events/"+f)
-  Events.register(client, m)
+  Events.register(client, ...m)
     .then(console.log)
     .catch(console.log)
 })
@@ -16,7 +16,7 @@ readdir("test/events/", (e,f) => {
 readdir("test/commands/", (e,f) => {
   if (e) return console.log(e)
   var m = f.map(f => __dirname+"/commands/"+f)
-  Commands.register(m)
+  Commands.register(...m)
     .then(console.log)
     .catch(console.log)
 })
