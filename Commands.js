@@ -28,8 +28,8 @@ const register = (...paths) => {
 const route = (client, guild = undefined) => {
   return new Promise((resolve, reject) => {
     if (!client) return reject("No client object provided")
-    var {token,application} = client
-    var {id} = application
+    var { token, application } = client
+    var { id } = application
     if (!token) return reject("No token provided for the request")
     if (!id) return reject("No id provied for the request")
     if (!commands) return reject("No commands to route")
@@ -42,8 +42,13 @@ const route = (client, guild = undefined) => {
       r = Routes.applicationCommands(id)
     }
 
-    const cmds = commands.map(cmd => cmd.command.toJSON())
-
+    const cmds = commands.map(cmd => {
+      var c = cmd.command.toJSON()
+      var meta = cmd.meta
+      console.log(c, meta, Object.assign(c,meta))
+      return Object.assign(c, meta)
+    })
+    console.log(cmds)
     rest.put(r, { body: cmds })
       .then(resolve)
       .catch(reject);
