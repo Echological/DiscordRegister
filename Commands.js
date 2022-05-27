@@ -35,24 +35,33 @@ const route = (client, guild = undefined) => {
     if (!commands) return reject("No commands to route")
 
     const rest = new REST({ version: '9' }).setToken(token);
-    var r
-    if (guild) {
-      r = Routes.applicationGuildCommands(id, guild)
-    } else {
-      r = Routes.applicationCommands(id)
-    }
+    
+    var r = guild ? Routes.applicationGuildCommands(id, guild) : Routes.applicationCommands(id)
 
     const cmds = commands.map(cmd => {
       var c = cmd.command.toJSON()
       var meta = cmd.meta
-      console.log(c, meta, Object.assign(c,meta))
       return Object.assign(c, meta)
     })
-    console.log(cmds)
     rest.put(r, { body: cmds })
-      .then(resolve)
+      .then((async cs => {
+
+        for (var {id, guild_id} of cs) {
+          if (!commands[id] || !commands[id].permissions) return
+          var cm = (guild_id ? await client.guilds.cache.get(guild_id).commands.fetch(id) : await client.commands.fetch(id))
+          await cm.permissions.add(commands[id].permissions)
+        }
+
+        resolve(cmds)
+      }))
       .catch(reject);
 
+  })
+}
+
+var permissions = (guild) => {
+  return new Promise((res,rej) => {
+    
   })
 }
 
