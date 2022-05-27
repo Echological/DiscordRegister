@@ -1,14 +1,15 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
-const {Permissions} = require("discord.js")
+const { Permissions } = require("discord.js")
 
 const command = new SlashCommandBuilder()
   .setName("hi")
   .setDescription("O hi")
-  
+  .setDefaultPermission(false)
+
 module.exports = {
   command,
-  meta: {
-    "default_member_permissions": ""+Permissions.FLAGS.ADMINISTRATOR
+  interact: async(client, interaction) => {
+    interaction.reply("HI!", {ephemeral: true})
   }
 }
